@@ -20,7 +20,7 @@ export function NewSubjectForm() {
         <label htmlFor="new-name" className="label">
           Subject name
         </label>
-        <input id="new-name" name="name" required maxLength={120} className="input" placeholder="e.g. Physics" />
+        <input id="new-name" name="name" required maxLength={120} className="input" placeholder="e.g. Statistics" />
       </div>
       <div>
         <label htmlFor="new-desc" className="label">

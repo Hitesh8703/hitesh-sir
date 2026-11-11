@@ -84,7 +84,7 @@ export default function HomePage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-xs font-medium text-ink-500">Your progress</p>
-                    <p className="font-display text-2xl font-semibold">Physics</p>
+                    <p className="font-display text-2xl font-semibold">Statistics</p>
                   </div>
                   <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-200">
                     64% complete
@@ -95,9 +95,9 @@ export default function HomePage() {
                 </div>
                 <ul className="mt-6 space-y-3">
                   {[
-                    ["Mechanics — Paper 1", "Completed", "bg-emerald-600"],
-                    ["Thermodynamics — Paper 2", "In Progress", "bg-amber-500"],
-                    ["Optics — Paper 3", "Not Started", "bg-ink-300"],
+                    ["Probability distribution — Paper 1", "Completed", "bg-emerald-600"],
+                    ["Estimates — Paper 2", "In Progress", "bg-amber-500"],
+                    ["Chi-square test — Paper 3", "Not Started", "bg-ink-300"],
                   ].map(([title, status, dot]) => (
                     <li key={title} className="flex items-center justify-between rounded-xl border border-ink-100 bg-paper/60 px-4 py-3">
                       <div className="flex items-center gap-3">
