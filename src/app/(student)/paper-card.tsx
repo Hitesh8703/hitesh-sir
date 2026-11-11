@@ -33,7 +33,7 @@ export function PaperCard({
             <span className="text-xs text-ink-500">{formatBytes(paper.file_size)}</span>
           </div>
           <p className="mt-2 text-xs text-ink-600">
-            <span className="font-medium text-ink-800">{othersViewed}</span> of {classmates} classmates viewed ·{" "}
+            <span className="font-medium text-ink-800">{othersViewed}</span> of {classmates} others viewed ·{" "}
             <span className="font-medium text-emerald-700">{othersDone}</span> completed
           </p>
         </div>

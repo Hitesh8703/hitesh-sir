@@ -15,8 +15,8 @@ const features = [
     icon: <path d="M4 12.5 9 17.5 20 6.5" />,
   },
   {
-    title: "Learn alongside classmates",
-    body: "See how many classmates have viewed and completed each paper — without anyone's personal details.",
+    title: "Learn alongside other people",
+    body: "See how many other people have viewed and completed each paper — without anyone's personal details.",
     icon: (
       <path d="M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1M9 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm13 9v-1a4 4 0 0 0-3-3.87M16 4.13a3 3 0 0 1 0 5.74" />
     ),
@@ -55,11 +55,10 @@ export default function HomePage() {
             <div>
               <p className="eyebrow">Private academic portal</p>
               <h1 className="mt-4 font-display text-[2.6rem] leading-[1.08] font-semibold tracking-tight text-ink-950 sm:text-6xl">
-                Study smarter with <span className="italic text-gold-600">Hitesh Sir</span>.
+                Skill issues removed with <span className="italic text-gold-600">Hitesh Sir</span>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-600">
-                One calm, focused place for every subject, every question paper and every step of
-                your progress — reserved for approved students.
+                Marks dont matter that much its fine only
               </p>
 
               <div className="mt-9 grid gap-3 sm:flex sm:flex-wrap">
