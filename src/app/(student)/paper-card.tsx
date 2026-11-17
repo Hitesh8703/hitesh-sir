@@ -53,8 +53,12 @@ export function PaperCard({
             {paper.status === "completed" ? (
               <>
                 <input type="hidden" name="status" value="in_progress" />
-                <SubmitButton className="btn btn-ghost btn-sm" pendingText="Saving…">
-                  Undo completed
+                <SubmitButton
+                  className="btn btn-outline btn-sm"
+                  pendingText="Saving…"
+                  confirmMessage={`Remove "${paper.title}" from your completed papers?`}
+                >
+                  Remove as completed
                 </SubmitButton>
               </>
             ) : (
