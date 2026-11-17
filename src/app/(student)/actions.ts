@@ -15,14 +15,12 @@ export async function setPaperProgress(formData: FormData) {
   if (status !== "completed" && status !== "in_progress") return;
 
   const supabase = await createClient();
-  await supabase.from("paper_progress").upsert(
-    {
-      student_id: user.id,
-      paper_id: paperId,
-      status,
-      completed_at: status === "completed" ? new Date().toISOString() : null,
-    },
-    { onConflict: "student_id,paper_id" },
-  );
+  // UPDATE only (never insert): the row is created when the student opens the paper,
+  // so a paper can't be marked completed without having been opened first.
+  await supabase
+    .from("paper_progress")
+    .update({ status, completed_at: status === "completed" ? new Date().toISOString() : null })
+    .eq("student_id", user.id)
+    .eq("paper_id", paperId);
   revalidatePath("/", "layout");
 }

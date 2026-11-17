@@ -5,6 +5,8 @@ import { EmptyState, PageHeader, ProgressBar, StatCard } from "@/components/ui";
 import { percent } from "@/lib/format";
 import { loadStudentData } from "../data";
 import { PaperCard } from "../paper-card";
+import { loadLeaderboard } from "@/lib/leaderboard";
+import { Leaderboard } from "@/components/leaderboard";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
@@ -16,7 +18,10 @@ export default async function DashboardPage({
   const { user, profile } = await requireStudent();
   const { q = "" } = await searchParams;
   const query = q.trim().toLowerCase();
-  const { subjects, allPapers, summary } = await loadStudentData(user.id);
+  const [{ subjects, allPapers, summary }, leaderboard] = await Promise.all([
+    loadStudentData(user.id),
+    loadLeaderboard(),
+  ]);
   const classmates = Math.max(0, summary.students - 1);
 
   const results = query
@@ -86,6 +91,8 @@ export default async function DashboardPage({
             </div>
             <ProgressBar value={myRate} tone="green" />
           </section>
+
+          <Leaderboard rows={leaderboard.rows} recent={leaderboard.recent} totalPapers={summary.total} currentUserId={user.id} />
 
           {continueWith.length > 0 && (
             <section className="space-y-4">

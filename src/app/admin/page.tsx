@@ -5,6 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 import { EmptyState, PageHeader, ProgressBar, StatCard } from "@/components/ui";
 import { percent } from "@/lib/format";
 import type { PaperStat } from "@/lib/types";
+import { loadLeaderboard } from "@/lib/leaderboard";
+import { Leaderboard } from "@/components/leaderboard";
 
 export const metadata: Metadata = { title: "Admin overview" };
 
@@ -14,12 +16,13 @@ export default async function AdminOverviewPage() {
   const { profile } = await requireAdmin();
   const supabase = await createClient();
 
-  const [students, pending, { data: subjectRows }, { data: paperRows }, { data: statRows }] = await Promise.all([
+  const [students, pending, { data: subjectRows }, { data: paperRows }, { data: statRows }, leaderboard] = await Promise.all([
     supabase.from("profiles").select("id", { count: "exact", head: true }).eq("role", "student").eq("status", "active"),
     supabase.from("applications").select("id", { count: "exact", head: true }).eq("status", "pending"),
     supabase.from("subjects").select("id, name").order("name"),
     supabase.from("papers").select("id, title, subject_id, subjects(name)"),
     supabase.rpc("get_paper_stats"),
+    loadLeaderboard(),
   ]);
 
   const studentCount = students.count ?? 0;
@@ -104,6 +107,8 @@ export default async function AdminOverviewPage() {
           </div>
         </dl>
       </section>
+
+      <Leaderboard rows={leaderboard.rows} recent={leaderboard.recent} totalPapers={papers.length} />
 
       <section className="grid gap-6 lg:grid-cols-2">
         <RankedList title="Most viewed papers" rows={mostViewed.map((r) => ({ id: r.id, title: r.title, subject: r.subjects?.name ?? "", value: r.viewed }))} unit="viewed" max={studentCount} tone="gold" />

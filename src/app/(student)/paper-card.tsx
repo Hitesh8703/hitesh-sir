@@ -2,6 +2,7 @@ import { ProgressBadge } from "@/components/ui";
 import { SubmitButton } from "@/components/form-bits";
 import { formatBytes } from "@/lib/format";
 import { setPaperProgress } from "./actions";
+import { OpenPaperButton } from "./open-paper-button";
 import type { StudentPaper } from "./data";
 
 export function PaperCard({
@@ -40,30 +41,32 @@ export function PaperCard({
       </div>
 
       <div className="flex flex-wrap gap-2 sm:justify-end">
-        <a href={`/papers/${paper.id}/open`} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm">
-          Open
-        </a>
+        <OpenPaperButton paperId={paper.id} opened={paper.status !== null} />
         <a href={`/papers/${paper.id}/open?download=1`} className="btn btn-outline btn-sm">
           Download
         </a>
-        <form action={setPaperProgress}>
-          <input type="hidden" name="paperId" value={paper.id} />
-          {paper.status === "completed" ? (
-            <>
-              <input type="hidden" name="status" value="in_progress" />
-              <SubmitButton className="btn btn-ghost btn-sm" pendingText="Saving…">
-                Undo completed
-              </SubmitButton>
-            </>
-          ) : (
-            <>
-              <input type="hidden" name="status" value="completed" />
-              <SubmitButton className="btn btn-success btn-sm" pendingText="Saving…">
-                Mark as completed
-              </SubmitButton>
-            </>
-          )}
-        </form>
+        {paper.status === null ? (
+          <span className="self-center text-xs text-ink-500">Open it to mark as completed</span>
+        ) : (
+          <form action={setPaperProgress}>
+            <input type="hidden" name="paperId" value={paper.id} />
+            {paper.status === "completed" ? (
+              <>
+                <input type="hidden" name="status" value="in_progress" />
+                <SubmitButton className="btn btn-ghost btn-sm" pendingText="Saving…">
+                  Undo completed
+                </SubmitButton>
+              </>
+            ) : (
+              <>
+                <input type="hidden" name="status" value="completed" />
+                <SubmitButton className="btn btn-success btn-sm" pendingText="Saving…">
+                  Mark as completed
+                </SubmitButton>
+              </>
+            )}
+          </form>
+        )}
       </div>
     </li>
   );

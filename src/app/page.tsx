@@ -16,7 +16,7 @@ const features = [
   },
   {
     title: "Learn alongside other people",
-    body: "See how many other people have viewed and completed each paper — without anyone's personal details.",
+    body: "See how many other people have viewed and completed each paper, and who is topping the leaderboard.",
     icon: (
       <path d="M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1M9 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm13 9v-1a4 4 0 0 0-3-3.87M16 4.13a3 3 0 0 1 0 5.74" />
     ),
