@@ -2,7 +2,7 @@ import { ProgressBadge } from "@/components/ui";
 import { SubmitButton } from "@/components/form-bits";
 import { formatBytes } from "@/lib/format";
 import { setPaperProgress } from "./actions";
-import { OpenPaperButton } from "./open-paper-button";
+import { PaperLink } from "./open-paper-button";
 import type { StudentPaper } from "./data";
 
 export function PaperCard({
@@ -41,10 +41,12 @@ export function PaperCard({
       </div>
 
       <div className="flex flex-wrap gap-2 sm:justify-end">
-        <OpenPaperButton paperId={paper.id} opened={paper.status !== null} />
-        <a href={`/papers/${paper.id}/open?download=1`} className="btn btn-outline btn-sm">
+        <PaperLink paperId={paper.id} opened={paper.status !== null} className="btn btn-primary btn-sm">
+          Open
+        </PaperLink>
+        <PaperLink paperId={paper.id} opened={paper.status !== null} download className="btn btn-outline btn-sm">
           Download
-        </a>
+        </PaperLink>
         {paper.status === null ? (
           <span className="self-center text-xs text-ink-500">Open it to mark as completed</span>
         ) : (

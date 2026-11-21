@@ -18,10 +18,13 @@ export function isAdmin(profile: Pick<Profile, "role" | "email">): boolean {
 /** The logged-in user and their profile, or null. Cached for one request. */
 export const getCurrentUser = cache(async () => {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return null;
+  // Verifies the login token's signature locally (Supabase's public signing key),
+  // so no extra round trip to Supabase on every page. Suspended or deleted
+  // accounts are still caught by the profile check below and by the database.
+  const { data } = await supabase.auth.getClaims();
+  const claims = data?.claims;
+  if (!claims?.sub) return null;
+  const user = { id: claims.sub, email: (claims.email as string | undefined) ?? "" };
 
   const { data: profile } = await supabase
     .from("profiles")

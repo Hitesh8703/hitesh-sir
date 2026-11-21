@@ -42,10 +42,11 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  // Do not put code between createServerClient and getUser().
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // Do not put code between createServerClient and getClaims().
+  // getClaims() refreshes the session if needed and verifies the login token
+  // locally with Supabase's public signing key (no extra trip to Supabase).
+  const { data } = await supabase.auth.getClaims();
+  const user = data?.claims?.sub ? data.claims : null;
 
   if (!user && isProtected(request.nextUrl.pathname)) {
     const loginUrl = request.nextUrl.clone();
