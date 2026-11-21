@@ -28,7 +28,7 @@ export default async function LoginPage({
   return (
     <AuthShell
       title="Welcome back"
-      subtitle="Log in to your Hitesh Sir student account."
+      subtitle="Log in to your Hitesh Sir account."
       footer={
         <>
           Don&apos;t have an account?{" "}
